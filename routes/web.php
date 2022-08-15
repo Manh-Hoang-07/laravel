@@ -33,8 +33,9 @@ Route::prefix('categories')->group(function () {
         'uses' => 'App\Http\Controllers\CategoryController@create'
     ]);
 
-    Route::get('/selectList', [
-        'as' => 'categories.selectList',
-        'uses' => 'App\Http\Controllers\CategoryController@selectList'
+    //Submit thêm mới danh mục
+    Route::post('/store', [
+        'as' => 'categories.store',
+        'uses' => 'App\Http\Controllers\CategoryController@store'
     ]);
 });

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Trang chủ</title>
+    <title>Thêm mới danh mục</title>
 @endsection
 
 @section('content')
@@ -14,17 +14,17 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <form>
+                        <form action="{{ route('categories.store') }}" method="POST">
+                            @csrf
                             <div class="form-group">
                                 <label>Tên danh mục</label>
-                                <input type="text" class="form-control" placeholder="Nhập tên danh mục">
+                                <input type="text" class="form-control" name="title" placeholder="Nhập tên danh mục">
                             </div>
                             <div class="form-group">
                                 <label>Danh mục cha</label>
-                                <select name="" id="" class="form-control">
+                                <select name="parent_id" id="" class="form-control">
                                     <option value="0">Chọn danh mục cha</option>
-                                    <option value="1">Danh mục 2</option>
-                                    <option value="2">Danh mục 1</option>
+                                    {!! $selectListItems !!}
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
