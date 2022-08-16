@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Brick\Math\BigInteger;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Components\Recursive;
@@ -19,15 +20,14 @@ class CategoryController extends Controller
     //Hàm gọi giao diện danh sách danh mục
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return view('category.index');
+        $items = $this->category->latest()->paginate(5) ?? [];
+        return view('category.index',compact('items'));
     }
 
     //Hàm gọi giao diện thêm mới danh mục
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $data = $this->category->all();
-        $recursive = new Recursive($data);
-        $selectListItems = $recursive->recursiveCategory();
+        $selectListItems = $this->selectList();
         return view('category.add', compact('selectListItems'));
     }
 
@@ -39,5 +39,20 @@ class CategoryController extends Controller
             'slug' => $request->title ?? ''
         ]);
         return redirect()->route('categories.index');
+    }
+
+    public function selectList(int $parent_id): string
+    {
+        $data = $this->category->all();
+        $recursive = new Recursive($data);
+        return $recursive->recursiveCategory($parent_id);
+    }
+
+    public function edit(int $id) {
+        if(!empty($id)) {
+            $item = $this->category->find($id);
+            $selectListItems = $this->selectList($item->parent_id);
+            return view('category.edit', compact('item','selectListItems'));
+        }
     }
 }

@@ -38,4 +38,16 @@ Route::prefix('categories')->group(function () {
         'as' => 'categories.store',
         'uses' => 'App\Http\Controllers\CategoryController@store'
     ]);
+
+    //Sửa danh mục
+    Route::get('/edit/{id}', [
+        'as' => 'categories.edit',
+        'uses' => 'App\Http\Controllers\CategoryController@edit'
+    ]);
+
+    //Xóa danh mục
+    Route::get('/delete/{id}', [
+        'as' => 'categories.delete',
+        'uses' => 'App\Http\Controllers\CategoryController@delete'
+    ]);
 });
