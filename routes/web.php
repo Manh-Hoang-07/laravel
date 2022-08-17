@@ -50,4 +50,21 @@ Route::prefix('categories')->group(function () {
         'as' => 'categories.delete',
         'uses' => 'App\Http\Controllers\CategoryController@delete'
     ]);
+
+    Route::prefix('menus')->group(function () {
+        Route::get('/', [
+           'as' => 'menus.index',
+           'uses' =>  'App\Http\Controllers\MenuController@index'
+        ]);
+
+        Route::get('/add', [
+            'as' => 'menus.add',
+            'uses' =>  'App\Http\Controllers\MenuController@add'
+        ]);
+
+        Route::get('/', [
+            'as' => 'menus.index',
+            'uses' =>  'App\Http\Controllers\MenuController@index'
+        ]);
+    });
 });
