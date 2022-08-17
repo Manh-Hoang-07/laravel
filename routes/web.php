@@ -28,15 +28,15 @@ Route::prefix('categories')->group(function () {
         'uses' => 'App\Http\Controllers\CategoryController@index'
     ]);
     //Giao diện thêm mới danh mục
-    Route::get('/create', [
-        'as' => 'categories.create',
-        'uses' => 'App\Http\Controllers\CategoryController@create'
+    Route::get('/createInterface', [
+        'as' => 'categories.createInterface',
+        'uses' => 'App\Http\Controllers\CategoryController@create_interface'
     ]);
 
     //Submit thêm mới danh mục
-    Route::post('/store', [
-        'as' => 'categories.store',
-        'uses' => 'App\Http\Controllers\CategoryController@store'
+    Route::get('/create', [
+        'as' => 'categories.create',
+        'uses' => 'App\Http\Controllers\CategoryController@create'
     ]);
 
     //Sửa danh mục
@@ -50,21 +50,21 @@ Route::prefix('categories')->group(function () {
         'as' => 'categories.delete',
         'uses' => 'App\Http\Controllers\CategoryController@delete'
     ]);
+});
 
-    Route::prefix('menus')->group(function () {
-        Route::get('/', [
-           'as' => 'menus.index',
-           'uses' =>  'App\Http\Controllers\MenuController@index'
-        ]);
+Route::prefix('menus')->group(function () {
+    Route::get('/index', [
+        'as' => 'menus.index',
+        'uses' => 'App\Http\Controllers\MenuController@index'
+    ]);
 
-        Route::get('/add', [
-            'as' => 'menus.add',
-            'uses' =>  'App\Http\Controllers\MenuController@add'
-        ]);
+    Route::get('/createInterface', [
+        'as' => 'menus.createInterface',
+        'uses' => 'App\Http\Controllers\MenuController@create_interface'
+    ]);
 
-        Route::get('/', [
-            'as' => 'menus.index',
-            'uses' =>  'App\Http\Controllers\MenuController@index'
-        ]);
-    });
+    Route::post('/create', [
+        'as' => 'menus.create',
+        'uses' => 'App\Http\Controllers\MenuController@create'
+    ]);
 });

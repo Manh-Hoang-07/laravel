@@ -23,13 +23,13 @@ class CategoryController extends Controller
     }
 
     //Hàm gọi giao diện thêm mới danh mục
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function create_interface(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $selectListItems = $this->selectList();
         return view('category.add', compact('selectListItems'));
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
         $this->category->create([
             'title' => $request->title ?? '',

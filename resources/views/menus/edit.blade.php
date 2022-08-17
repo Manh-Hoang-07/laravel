@@ -14,17 +14,17 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <form action="{{ route('categories.store') }}" method="POST">
+                        <form action="{{ route('menus.create') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label>Tên danh mục</label>
-                                <input type="text" class="form-control" value="{{ $item->title }}" name="title" placeholder="Nhập tên danh mục">
+                                <input type="text" class="form-control" value="{{ $item->title ?? '' }}" name="title" placeholder="Nhập tên danh mục">
                             </div>
                             <div class="form-group">
                                 <label>Danh mục cha</label>
                                 <select name="parent_id" id="" class="form-control">
                                     <option value="0">Chọn danh mục cha</option>
-                                    {!! $selectListItems !!}
+
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
