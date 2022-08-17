@@ -20,12 +20,12 @@ class Recursive
         if(!empty($categories)) {
             foreach ($categories as $category) {
                 if (isset($category['parent_id']) && $category['parent_id'] == $id) {
-                    if(!empty($parent_id) && $parent_id == $category['id']) {
-                        $this->selectListItems .= '<option selected value="'. $category['id'] .'">' . $text . ($category['title'] ?? '') . '</option>';
+                    if(!empty($parent_id) && $parent_id == $category->id) {
+                        $this->selectListItems .= '<option selected="selected" value="'. $category['id'] .'">' . $text . ($category['title'] ?? '') . '</option>';
                     } else {
                         $this->selectListItems .= '<option value="' . $category['id'] . '">' . $text . ($category['title'] ?? '') . '</option>';
                     }
-                    $this->recursiveCategory($category['id'] ?? '', '-' . $text);
+                    $this->recursiveCategory($parent_id,$category['id'] ?? '', '-' . $text);
                 }
             }
         }
