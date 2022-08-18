@@ -8,63 +8,66 @@ use App\Components\Recursive;
 
 class CategoryController extends Controller
 {
-    private Category $category;
-
-    public function __construct(Category $category)
-    {
-        $this->category = $category;
-    }
-
     //Hàm gọi giao diện danh sách danh mục
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function index()
     {
-        $items = $this->category->latest()->paginate(5) ?? [];
-        return view('category.index',compact('items'));
+        $categories = Category::where('parent_id', '0')->paginate(3);
+        return view('category.index', ['categories' => $categories]);
     }
 
-    //Hàm gọi giao diện thêm mới danh mục
-    public function create_interface(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
-    {
-        $selectListItems = $this->selectList();
-        return view('category.add', compact('selectListItems'));
+    //Hàm gọi giao diện thêm mới
+    public function add() {
+        return view('category.add');
     }
 
-    public function create(Request $request)
-    {
-        $this->category->create([
+    //Hàm submit thêm mới danh mục
+    public function create(Request $request) {
+        if(($category = Category::create([
             'title' => $request->title ?? '',
             'parent_id' => $request->parent_id ?? '',
             'slug' => $request->title ?? ''
-        ]);
-        return redirect()->route('categories.index')->with('success', 'Thêm mới thành công.');
-    }
-
-    public function selectList($parent_id = false): string
-    {
-        $data = $this->category->all();
-        $recursive = new Recursive($data);
-        return $recursive->recursiveCategory($parent_id);
-    }
-
-    //Hàm sửa danh mục
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
-    {
-        if(!empty($id)) {
-            $item = $this->category->find($id);
-            $selectListItems = $this->selectList($item->parent_id);
-            return view('category.edit', compact('item','selectListItems'));
+        ]))
+            && !empty($category)
+            && !empty($category->id)
+        ) {
+            toastr()->success('Thêm mới danh mục thành công.');
+            return redirect()->route('categories.index');
         }
-        return redirect()->route('categories.index')->with('error', 'Lỗi không tìm thấy hoặc không xác định. Vui lòng thử lại sau');
+        toastr()->error('Thêm mới danh mục thất bại. Vui lòng thử lại sau.');
+        return redirect()->route('categories.index');
     }
 
-    //Hàm xóa danh mục
-    public function delete(int $id): \Illuminate\Http\RedirectResponse
-    {
-        if(!empty($id)) {
-            $item = $this->category->find($id);
-            $item->delete();
+    //Hàm gọi giao diện chỉnh sửa danh mục
+    public function edit(int $id) {
+        if(!empty($id)
+            && ($category = Category::find($id))
+        ) {
+            return view('category.edit', ['category' => $category]);
+        }
+        return redirect()->route('categories.index')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau');
+    }
+
+    public function update(int $id, Request $request) {
+        if(!empty($id)
+            && ($category = Category::find($id))
+        ) {
+            $category->update([
+                'title' => $request->title ?? '',
+                'parent_id' => $request->parent_id ?? '',
+                'slug' => $request->title ?? ''
+            ]);
+            return redirect()->route('categories.index')->with('success', 'Cập nhật danh mục thành công');
+        }
+        return redirect()->route('categories.index')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+    }
+
+    public function delete(int $id) {
+        if(!empty($id)
+            && ($category = Category::find($id))
+            && $category->delete()
+        ) {
             return redirect()->route('categories.index')->with('success', 'Xóa danh mục thành công.');
         }
-        return redirect()->route('categories.index')->with('error', 'Lỗi không tìm thấy hoặc không xác định. Vui lòng thử lại sau');
+        return redirect()->route('categories.index')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau.');
     }
 }

@@ -7,32 +7,67 @@ use App\Models\Menu;
 
 class MenuController extends Controller
 {
-    private Menu $menu;
-    public function __construct(Menu $menu)
-    {
-        $this->menu = $menu;
-    }
-
+    //Hàm gọi giao diện danh sách menu
     public function index() {
-        $items = $this->menu->latest()->paginate(5) ?? [];
-        return view('menus.index', compact('items'));
+        $menus = Menu::paginate(3);
+        return view('menus.index', ['menus' => $menus]);
     }
 
-    public function create_interface(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
-    {
+    public function add() {
         return view('menus.add');
     }
 
-    public function create(Request $request): \Illuminate\Http\RedirectResponse
-    {
-        if(!empty($request->title) && isset($request->parent_id)) {
-            $this->menu->create([
-                'title' => $request->title,
-                'parent_id' => $request->parent_id ?? ''
-            ]);
-            return redirect()->route('menus.index')->with('success', 'Thêm mới menu thành công.');
+    public function create(Request $request) {
+        if(($menu = Menu::create([
+            'title' => $request->title ?? '',
+            'parent_id' => $request->parent_id ?? '',
+            'slug' => $request->title ?? ''
+        ]))
+            && !empty($menu)
+            && !empty($menu->id)
+        ) {
+            toastr()->success('Thêm mới menu thành công.');
+            return redirect()->route('menus.index');
         }
-        return redirect()->route('menus.index')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+        toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
+        return redirect()->route('menus.index');
+    }
 
+    public function edit(int $id) {
+        if(!empty($id)
+            && ($menu = Menu::find($id))
+        ) {
+            return view('menus.edit', compact('menu'));
+        }
+        toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
+        return redirect()->route('menus.index');
+    }
+
+    public function update(int $id, Request $request) {
+        if(!empty($id)
+            && ($menu = Menu::find($id))
+        ) {
+            $menu->create([
+                'title' => $request->title ?? '',
+                'parent_id' => $request->parent_id ?? '',
+                'slug' => $request->title ?? ''
+            ]);
+            toastr()->success('Cập nhật menu thành công.');
+            return redirect()->route('menus.index');
+        }
+        toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
+        return redirect()->route('menus.index');
+    }
+
+    public function delete(int $id) {
+        if(!empty($id)
+            && ($menu = Menu::find($id))
+            && $menu->delete()
+        ) {
+            toastr()->success('Xóa menu thành công.');
+            return redirect()->route('menus.index');
+        }
+        toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
+        return redirect()->route('menus.index');
     }
 }

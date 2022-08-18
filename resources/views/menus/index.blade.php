@@ -14,7 +14,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ route('menus.createInterface') }}" class="btn btn-success float-right m-2">Thêm mới</a>
+                        <a href="{{ route('menus.add') }}" class="btn btn-success float-right m-2">Thêm mới</a>
                     </div>
                     <div class="col-12">
                         <table class="table">
@@ -27,14 +27,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach($items as $item)
+                                @foreach($menus as $menu)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->title }}</td>
-                                        <td>{{ $item->parent_id }}</td>
+                                        <td>{{ $menu->id }}</td>
+                                        <td>{{ $menu->title }}</td>
+                                        <td>{{ $menu->parent_id }}</td>
                                         <td>
-{{--                                            <a href="{{ route('menus.edit', ['id' => $item->id]) }}" class="btn btn-default">Sửa menu</a>--}}
-{{--                                            <a href="{{ route('menus.delete', ['id' => $item->id]) }}" class="btn btn-danger">Xóa menu</a>--}}
+                                            <a href="{{ route('menus.edit', ['id' => $menu->id]) }}" class="btn btn-default">Sửa menu</a>
+                                            <a href="{{ route('menus.delete', ['id' => $menu->id]) }}" class="btn btn-danger">Xóa menu</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -42,7 +42,7 @@
                         </table>
                     </div>
                     <div class="col-12">
-                        {{ $items->links() }}
+                        {{ $menus->links() }}
                     </div>
                 </div>
                 <!-- /.row -->

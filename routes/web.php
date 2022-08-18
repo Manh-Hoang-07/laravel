@@ -28,21 +28,27 @@ Route::prefix('categories')->group(function () {
         'uses' => 'App\Http\Controllers\CategoryController@index'
     ]);
     //Giao diện thêm mới danh mục
-    Route::get('/createInterface', [
-        'as' => 'categories.createInterface',
-        'uses' => 'App\Http\Controllers\CategoryController@create_interface'
+    Route::get('/add', [
+        'as' => 'categories.add',
+        'uses' => 'App\Http\Controllers\CategoryController@add'
     ]);
 
     //Submit thêm mới danh mục
-    Route::get('/create', [
+    Route::post('/create', [
         'as' => 'categories.create',
         'uses' => 'App\Http\Controllers\CategoryController@create'
     ]);
 
-    //Sửa danh mục
+    //Giao diện sửa danh mục
     Route::get('/edit/{id}', [
         'as' => 'categories.edit',
         'uses' => 'App\Http\Controllers\CategoryController@edit'
+    ]);
+
+    //Submit sửa danh mục
+    Route::post('/update/{id}', [
+        'as' => 'categories.update',
+        'uses' => 'App\Http\Controllers\CategoryController@update'
     ]);
 
     //Xóa danh mục
@@ -53,18 +59,39 @@ Route::prefix('categories')->group(function () {
 });
 
 Route::prefix('menus')->group(function () {
+    //Giao diện danh sách menu
     Route::get('/index', [
         'as' => 'menus.index',
         'uses' => 'App\Http\Controllers\MenuController@index'
     ]);
 
-    Route::get('/createInterface', [
-        'as' => 'menus.createInterface',
-        'uses' => 'App\Http\Controllers\MenuController@create_interface'
+    //Giao diện thêm mới menu
+    Route::get('/add', [
+        'as' => 'menus.add',
+        'uses' => 'App\Http\Controllers\MenuController@add'
     ]);
 
+    //Submit thêm mới menu
     Route::post('/create', [
         'as' => 'menus.create',
         'uses' => 'App\Http\Controllers\MenuController@create'
+    ]);
+
+    //Giao diện sửa menu
+    Route::get('/edit', [
+        'as' => 'menus.edit',
+        'uses' => 'App\Http\Controllers\MenuController@edit'
+    ]);
+
+    //Submit sửa menu
+    Route::post('/update', [
+        'as' => 'menus.update',
+        'uses' => 'App\Http\Controllers\MenuController@update'
+    ]);
+
+    //Xóa menu
+    Route::get('/delete/{id}', [
+        'as' => 'menus.delete',
+        'uses' => 'App\Http\Controllers\MenuController@delete'
     ]);
 });

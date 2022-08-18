@@ -14,7 +14,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ route('categories.create') }}" class="btn btn-success float-right m-2">Thêm mới</a>
+                        <a href="{{ route('categories.add') }}" class="btn btn-success float-right m-2">Thêm mới</a>
                     </div>
                     <div class="col-12">
                         <table class="table">
@@ -27,14 +27,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach($items as $item)
+                                @foreach($categories as $category)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->title }}</td>
-                                        <td>{{ $item->parent_id }}</td>
+                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $category->title }}</td>
+                                        <td>{{ $category->parent_id }}</td>
                                         <td>
-                                            <a href="{{ route('categories.edit', ['id' => $item->id]) }}" class="btn btn-default">Sửa danh mục</a>
-                                            <a href="{{ route('categories.delete', ['id' => $item->id]) }}" class="btn btn-danger">Xóa danh mục</a>
+                                            <a href="{{ route('categories.edit', ['id' => $category->id]) }}" class="btn btn-default">Sửa danh mục</a>
+                                            <a href="{{ route('categories.delete', ['id' => $category->id]) }}" class="btn btn-danger">Xóa danh mục</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -42,7 +42,7 @@
                         </table>
                     </div>
                     <div class="col-12">
-                        {{ $items->links() }}
+                        {{ $categories->links() }}
                     </div>
                 </div>
                 <!-- /.row -->
@@ -53,7 +53,6 @@
     <!-- /.content-wrapper -->
 @endsection
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @if(Session::has('success'))
     <script type="text/javascript">
         toastr.success("{!!Session::get('success')!!}");
@@ -64,4 +63,5 @@
         toastr.error("{!!Session::get('error')!!}");
     </script>
 @endif
+
 
