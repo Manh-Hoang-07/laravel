@@ -21,77 +21,77 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::prefix('categories')->group(function () {
+Route::prefix('categories')->namespace('App\Http\Controllers\Admin')->group(function () {
     //Giao diện danh sách danh mục
     Route::get('/index', [
         'as' => 'categories.index',
-        'uses' => 'App\Http\Controllers\CategoryController@index'
+        'uses' => 'CategoryController@index'
     ]);
     //Giao diện thêm mới danh mục
     Route::get('/add', [
         'as' => 'categories.add',
-        'uses' => 'App\Http\Controllers\CategoryController@add'
+        'uses' => 'CategoryController@add'
     ]);
 
     //Submit thêm mới danh mục
     Route::post('/create', [
         'as' => 'categories.create',
-        'uses' => 'App\Http\Controllers\CategoryController@create'
+        'uses' => 'CategoryController@create'
     ]);
 
     //Giao diện sửa danh mục
     Route::get('/edit/{id}', [
         'as' => 'categories.edit',
-        'uses' => 'App\Http\Controllers\CategoryController@edit'
+        'uses' => 'CategoryController@edit'
     ]);
 
     //Submit sửa danh mục
     Route::post('/update/{id}', [
         'as' => 'categories.update',
-        'uses' => 'App\Http\Controllers\CategoryController@update'
+        'uses' => 'CategoryController@update'
     ]);
 
     //Xóa danh mục
     Route::get('/delete/{id}', [
         'as' => 'categories.delete',
-        'uses' => 'App\Http\Controllers\CategoryController@delete'
+        'uses' => 'CategoryController@delete'
     ]);
 });
 
-Route::prefix('menus')->group(function () {
+Route::prefix('menus')->namespace('App\Http\Controllers\Admin')->group(function () {
     //Giao diện danh sách menu
     Route::get('/index', [
         'as' => 'menus.index',
-        'uses' => 'App\Http\Controllers\MenuController@index'
+        'uses' => 'MenuController@index'
     ]);
 
     //Giao diện thêm mới menu
     Route::get('/add', [
         'as' => 'menus.add',
-        'uses' => 'App\Http\Controllers\MenuController@add'
+        'uses' => 'MenuController@add'
     ]);
 
     //Submit thêm mới menu
     Route::post('/create', [
         'as' => 'menus.create',
-        'uses' => 'App\Http\Controllers\MenuController@create'
+        'uses' => 'MenuController@create'
     ]);
 
     //Giao diện sửa menu
-    Route::get('/edit', [
+    Route::get('/edit/{id}', [
         'as' => 'menus.edit',
-        'uses' => 'App\Http\Controllers\MenuController@edit'
+        'uses' => 'MenuController@edit'
     ]);
 
     //Submit sửa menu
-    Route::post('/update', [
+    Route::post('/update/{id}', [
         'as' => 'menus.update',
-        'uses' => 'App\Http\Controllers\MenuController@update'
+        'uses' => 'MenuController@update'
     ]);
 
     //Xóa menu
     Route::get('/delete/{id}', [
         'as' => 'menus.delete',
-        'uses' => 'App\Http\Controllers\MenuController@delete'
+        'uses' => 'MenuController@delete'
     ]);
 });

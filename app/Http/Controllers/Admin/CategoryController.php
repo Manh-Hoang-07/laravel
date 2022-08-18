@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Components\Recursive;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {

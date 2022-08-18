@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Menu;
+use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
@@ -47,7 +48,7 @@ class MenuController extends Controller
         if(!empty($id)
             && ($menu = Menu::find($id))
         ) {
-            $menu->create([
+            $menu->update([
                 'title' => $request->title ?? '',
                 'parent_id' => $request->parent_id ?? '',
                 'slug' => $request->title ?? ''
