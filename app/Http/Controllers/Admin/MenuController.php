@@ -11,11 +11,11 @@ class MenuController extends Controller
     //Hàm gọi giao diện danh sách menu
     public function index() {
         $menus = Menu::paginate(3);
-        return view('menus.index', ['menus' => $menus]);
+        return view('admin.menus.index', ['menus' => $menus]);
     }
 
     public function add() {
-        return view('menus.add');
+        return view('admin.menus.add');
     }
 
     public function create(Request $request) {

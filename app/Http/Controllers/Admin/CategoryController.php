@@ -12,12 +12,12 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::where('parent_id', '0')->paginate(3);
-        return view('category.index', ['categories' => $categories]);
+        return view('admin.category.index', ['categories' => $categories]);
     }
 
     //Hàm gọi giao diện thêm mới
     public function add() {
-        return view('category.add');
+        return view('admin.category.add');
     }
 
     //Hàm submit thêm mới danh mục
@@ -42,7 +42,7 @@ class CategoryController extends Controller
         if(!empty($id)
             && ($category = Category::find($id))
         ) {
-            return view('category.edit', ['category' => $category]);
+            return view('admin.category.edit', ['category' => $category]);
         }
         return redirect()->route('categories.index')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau');
     }
