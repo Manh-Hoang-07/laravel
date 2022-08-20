@@ -14,7 +14,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ route('menus.add') }}" class="btn btn-success float-right m-2">Thêm mới</a>
+                        <a href="{{ route('admin.menus.add') }}" class="btn btn-success float-right m-2">Thêm mới</a>
                     </div>
                     <div class="col-12">
                         <table class="table">
@@ -33,8 +33,8 @@
                                         <td>{{ $menu->title }}</td>
                                         <td>{{ $menu->parent_id }}</td>
                                         <td>
-                                            <a href="{{ route('menus.edit', ['id' => $menu->id]) }}" class="btn btn-default">Sửa menu</a>
-                                            <a href="{{ route('menus.delete', ['id' => $menu->id]) }}" class="btn btn-danger">Xóa menu</a>
+                                            <a href="{{ route('admin.menus.edit', ['id' => $menu->id]) }}" class="btn btn-default">Sửa menu</a>
+                                            <a href="{{ route('admin.menus.delete', ['id' => $menu->id]) }}" class="btn btn-danger">Xóa menu</a>
                                         </td>
                                     </tr>
                                 @endforeach

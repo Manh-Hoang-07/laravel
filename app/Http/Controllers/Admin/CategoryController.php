@@ -31,10 +31,10 @@ class CategoryController extends Controller
             && !empty($category->id)
         ) {
             toastr()->success('Thêm mới danh mục thành công.');
-            return redirect()->route('categories.index');
+            return redirect()->route('admin.categories.index');
         }
         toastr()->error('Thêm mới danh mục thất bại. Vui lòng thử lại sau.');
-        return redirect()->route('categories.index');
+        return redirect()->route('admin.categories.index');
     }
 
     //Hàm gọi giao diện chỉnh sửa danh mục
@@ -44,7 +44,7 @@ class CategoryController extends Controller
         ) {
             return view('admin.category.edit', ['category' => $category]);
         }
-        return redirect()->route('categories.index')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau');
+        return redirect()->route('admin.categories.index')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau');
     }
 
     public function update(int $id, Request $request) {
@@ -56,9 +56,9 @@ class CategoryController extends Controller
                 'parent_id' => $request->parent_id ?? '',
                 'slug' => $request->title ?? ''
             ]);
-            return redirect()->route('categories.index')->with('success', 'Cập nhật danh mục thành công');
+            return redirect()->route('admin.categories.index')->with('success', 'Cập nhật danh mục thành công');
         }
-        return redirect()->route('categories.index')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+        return redirect()->route('admin.categories.index')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau.');
     }
 
     public function delete(int $id) {
@@ -66,8 +66,8 @@ class CategoryController extends Controller
             && ($category = Category::find($id))
             && $category->delete()
         ) {
-            return redirect()->route('categories.index')->with('success', 'Xóa danh mục thành công.');
+            return redirect()->route('admin.categories.index')->with('success', 'Xóa danh mục thành công.');
         }
-        return redirect()->route('categories.index')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+        return redirect()->route('admin.categories.index')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại sau.');
     }
 }

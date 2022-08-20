@@ -28,20 +28,20 @@ class MenuController extends Controller
             && !empty($menu->id)
         ) {
             toastr()->success('Thêm mới menu thành công.');
-            return redirect()->route('menus.index');
+            return redirect()->route('admin.menus.index');
         }
         toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
-        return redirect()->route('menus.index');
+        return redirect()->route('admin.menus.index');
     }
 
     public function edit(int $id) {
         if(!empty($id)
             && ($menu = Menu::find($id))
         ) {
-            return view('menus.edit', compact('menu'));
+            return view('admin.menus.edit', compact('menu'));
         }
         toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
-        return redirect()->route('menus.index');
+        return redirect()->route('admin.menus.index');
     }
 
     public function update(int $id, Request $request) {
@@ -54,10 +54,10 @@ class MenuController extends Controller
                 'slug' => $request->title ?? ''
             ]);
             toastr()->success('Cập nhật menu thành công.');
-            return redirect()->route('menus.index');
+            return redirect()->route('admin.menus.index');
         }
         toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
-        return redirect()->route('menus.index');
+        return redirect()->route('admin.menus.index');
     }
 
     public function delete(int $id) {
@@ -66,9 +66,9 @@ class MenuController extends Controller
             && $menu->delete()
         ) {
             toastr()->success('Xóa menu thành công.');
-            return redirect()->route('menus.index');
+            return redirect()->route('admin.menus.index');
         }
         toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
-        return redirect()->route('menus.index');
+        return redirect()->route('admin.menus.index');
     }
 }

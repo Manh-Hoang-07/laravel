@@ -31,79 +31,121 @@ Route::post('/login-handling', [
     'uses' => 'App\Http\Controllers\Login\LoginController@login_handling'
 ]);
 
-Route::prefix('admin')->group(function () {
-    Route::prefix('categories')->namespace('App\Http\Controllers\Admin')->group(function () {
+Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function () {
+
+    //Route danh mục sản phẩm
+    Route::prefix('categories')->group(function () {
         //Giao diện danh sách danh mục
         Route::get('/index', [
-            'as' => 'categories.index',
+            'as' => 'admin.categories.index',
             'uses' => 'CategoryController@index'
         ]);
         //Giao diện thêm mới danh mục
         Route::get('/add', [
-            'as' => 'categories.add',
+            'as' => 'admin.categories.add',
             'uses' => 'CategoryController@add'
         ]);
 
         //Submit thêm mới danh mục
         Route::post('/create', [
-            'as' => 'categories.create',
+            'as' => 'admin.categories.create',
             'uses' => 'CategoryController@create'
         ]);
 
         //Giao diện sửa danh mục
         Route::get('/edit/{id}', [
-            'as' => 'categories.edit',
+            'as' => 'admin.categories.edit',
             'uses' => 'CategoryController@edit'
         ]);
 
         //Submit sửa danh mục
         Route::post('/update/{id}', [
-            'as' => 'categories.update',
+            'as' => 'admin.categories.update',
             'uses' => 'CategoryController@update'
         ]);
 
         //Xóa danh mục
         Route::get('/delete/{id}', [
-            'as' => 'categories.delete',
+            'as' => 'admin.categories.delete',
             'uses' => 'CategoryController@delete'
         ]);
     });
 
-    Route::prefix('menus')->namespace('App\Http\Controllers\Admin')->group(function () {
+    //Route menu
+    Route::prefix('menus')->group(function () {
         //Giao diện danh sách menu
         Route::get('/index', [
-            'as' => 'menus.index',
+            'as' => 'admin.menus.index',
             'uses' => 'MenuController@index'
         ]);
 
         //Giao diện thêm mới menu
         Route::get('/add', [
-            'as' => 'menus.add',
+            'as' => 'admin.menus.add',
             'uses' => 'MenuController@add'
         ]);
 
         //Submit thêm mới menu
         Route::post('/create', [
-            'as' => 'menus.create',
+            'as' => 'admin.menus.create',
             'uses' => 'MenuController@create'
         ]);
 
         //Giao diện sửa menu
         Route::get('/edit/{id}', [
-            'as' => 'menus.edit',
+            'as' => 'admin.menus.edit',
             'uses' => 'MenuController@edit'
         ]);
 
         //Submit sửa menu
         Route::post('/update/{id}', [
-            'as' => 'menus.update',
+            'as' => 'admin.menus.update',
             'uses' => 'MenuController@update'
         ]);
 
         //Xóa menu
         Route::get('/delete/{id}', [
-            'as' => 'menus.delete',
+            'as' => 'admin.menus.delete',
             'uses' => 'MenuController@delete'
+        ]);
+    });
+
+    //Route sản phẩm
+    Route::prefix('products')->group(function () {
+        //Route danh sách sản phẩm
+        Route::get('/index', [
+            'as' => 'admin.products.index',
+            'uses' => 'ProductController@index'
+        ]);
+
+        //Route giao diện sản phẩm
+        Route::get('/add', [
+            'as' => 'admin.products.add',
+            'uses' => 'ProductController@add'
+        ]);
+
+        //Route submit thêm mới sản phẩm
+        Route::post('/create', [
+            'as' => 'admin.products.create',
+            'uses' => 'ProductController@create'
+        ]);
+
+        //Route giao diện chỉnh sứa sản phẩm
+        Route::get('/edit', [
+            'as' => 'admin.products.edit',
+            'uses' => 'ProductController@edit'
+        ]);
+
+        //Route submit chỉnh sửa sản phẩm
+        Route::post('/update', [
+            'as' => 'admin.products.update',
+            'uses' => 'ProductController@update'
+        ]);
+
+        //Route xóa sản phẩm
+        Route::get('/delete', [
+            'as' => 'admin.products.delete',
+            'uses' => 'ProductController@delete'
         ]);
     });
 });

@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function login() {
         if(auth()->check()) {
-            return redirect()->route('categories.index');
+            return redirect()->route('admin.categories.index');
         }
         return view('login.login');
     }
@@ -23,7 +23,7 @@ class LoginController extends Controller
             ], $remember
         )) {
             toastr()->success('Đăng nhập thành công');
-            return redirect()->route('categories.index');
+            return redirect()->route('admin.categories.index');
         }
         toastr()->error('Tài khoản hoặc mật khẩu không chính xác');
         return redirect()->route('login');

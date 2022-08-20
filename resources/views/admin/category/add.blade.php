@@ -14,7 +14,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <form action="{{ route('categories.create') }}" method="POST">
+                        <form action="{{ route('admin.categories.create') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label>Tên danh mục</label>
