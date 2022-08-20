@@ -36,4 +36,45 @@ class ProductController extends Controller
         toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
         return redirect()->route('admin.products.index');
     }
+
+    public function edit(int $id) {
+        if(!empty($id)
+            &&($product = Product::find($id))
+        ) {
+            return view('admin.products.edit', compact('product'));
+        }
+        toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
+        return redirect()->route('admin.products.index');
+    }
+
+    public function update(int $id, Request $request) {
+        if(!empty($id)
+            &&($product = Product::find($id))
+        ) {
+            $product->update([
+                'title' => $request->title ?? '',
+                'price' => $request->price ?? '',
+                'feature_image_path' => $request->feature_image_path ?? '',
+                'content' => $request->content ?? '',
+                'user_id' => auth()->id() ?? '',
+                'category_id' => $request->category_id ?? ''
+            ]);
+            toastr()->success('Cập nhật sản phẩm thành công.');
+            return redirect()->route('admin.products.index');
+        }
+        toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
+        return redirect()->route('admin.products.index');
+    }
+
+    public function delete(int $id) {
+        if(!empty($id)
+            && ($product = Product::find($id))
+            && $product->delete()
+        ) {
+            toastr()->success('Xóa sản phẩm thành công.');
+            return redirect()->route('admin.products.index');
+        }
+        toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
+        return redirect()->route('admin.product.index');
+    }
 }

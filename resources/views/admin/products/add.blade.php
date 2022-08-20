@@ -1,23 +1,23 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Thêm mới danh mục</title>
+    <title>Thêm mới sản phẩm</title>
 @endsection
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @include('partials.content-header', ['name' => 'Menu', 'key' => 'Thêm mới'])
+        @include('partials.content-header', ['name' => 'Sản phẩm', 'key' => 'Thêm mới'])
 
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <form action="{{ route('admin.menus.create') }}" method="POST">
+                        <form action="{{ route('admin.products.create') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label>Tên menu</label>
+                                <label>Tên sản phẩm</label>
                                 <input type="text" class="form-control" name="title" placeholder="Nhập tên menu">
                             </div>
                             <div class="form-group">

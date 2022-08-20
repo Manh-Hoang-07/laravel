@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Chỉnh sửa danh mục</title>
+    <title>Chỉnh sửa sản phẩm</title>
 @endsection
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @include('partials.content-header', ['name' => 'Danh mục', 'key' => 'Chỉnh sửa'])
+        @include('partials.content-header', ['name' => 'Sản phẩm', 'key' => 'Chỉnh sửa'])
 
         <!-- Main content -->
         <div class="content">
@@ -17,7 +17,7 @@
                         <form action="{{ route('admin.menus.update', ['id' => $menu->id]) }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label>Tên danh mục</label>
+                                <label>Tên sản phẩm</label>
                                 <input type="text" class="form-control" value="{{ $menu->title ?? '' }}" name="title" placeholder="Nhập tên danh mục">
                             </div>
                             <div class="form-group">
