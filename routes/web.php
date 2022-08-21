@@ -131,19 +131,19 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function 
         ]);
 
         //Route giao diện chỉnh sứa sản phẩm
-        Route::get('/edit', [
+        Route::get('/edit/{id}', [
             'as' => 'admin.products.edit',
             'uses' => 'ProductController@edit'
         ]);
 
         //Route submit chỉnh sửa sản phẩm
-        Route::post('/update', [
+        Route::post('/update/{id}', [
             'as' => 'admin.products.update',
             'uses' => 'ProductController@update'
         ]);
 
         //Route xóa sản phẩm
-        Route::get('/delete', [
+        Route::get('/delete/{id}', [
             'as' => 'admin.products.delete',
             'uses' => 'ProductController@delete'
         ]);

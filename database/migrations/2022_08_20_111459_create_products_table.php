@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('price');
-            $table->string('feature_image_path')->nullable();
+            $table->string('image')->nullable();
             $table->text('content');
             $table->integer('user_id');
             $table->integer('category_id');

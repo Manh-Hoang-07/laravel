@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
-            $table->string('image_path')->nullable();
-            $table->integer('product_id');
+            $table->renameColumn('image_path', 'title');
             $table->timestamps();
         });
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -14,7 +16,8 @@ class ProductController extends Controller
     }
 
     public function add() {
-        return view('admin.products.add');
+        $categories = Category::all();
+        return view('admin.products.add', compact('categories'));
     }
 
     public function create(Request $request)
@@ -41,7 +44,8 @@ class ProductController extends Controller
         if(!empty($id)
             &&($product = Product::find($id))
         ) {
-            return view('admin.products.edit', compact('product'));
+            $categories = Category::all();
+            return view('admin.products.edit', compact('product', 'categories'));
         }
         toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
         return redirect()->route('admin.products.index');
@@ -51,19 +55,36 @@ class ProductController extends Controller
         if(!empty($id)
             &&($product = Product::find($id))
         ) {
+            $image_path = \App\Lib\Image::upload_image($request, 'image', 'products/image');
             $product->update([
                 'title' => $request->title ?? '',
                 'price' => $request->price ?? '',
-                'feature_image_path' => $request->feature_image_path ?? '',
+                'image' => $image_path,
                 'content' => $request->content ?? '',
-                'user_id' => auth()->id() ?? '',
-                'category_id' => $request->category_id ?? ''
+                'user_id' => intval(auth()->id()) ?? 0,
+                'category_id' => intval($request->category_id) ?? 0
             ]);
+            $this->upload_images($request, $product);
             toastr()->success('Cập nhật sản phẩm thành công.');
             return redirect()->route('admin.products.index');
         }
         toastr()->error('Có lỗi xảy ra. Vui lòng thử lại sau.');
         return redirect()->route('admin.products.index');
+    }
+
+    private function upload_images(Request $request, $product) {
+        if($request->hasFile('images')) {
+            $insert = [];
+            foreach ($request->images as $image) {
+                $insert[] = [
+                    'product_id' => $product->id ?? '',
+                    'image_path' => ''
+                ];
+            }
+            if(!empty($insert)) {
+                ProductImage::create($insert);
+            }
+        }
     }
 
     public function delete(int $id) {
