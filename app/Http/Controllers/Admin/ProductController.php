@@ -26,7 +26,7 @@ class ProductController extends Controller
                 'title' => $request->title ?? '',
                 'price' => $request->price ?? '',
                 'feature_image_path' => $request->feature_image_path ?? '',
-                'content' => $request->content ?? '',
+                'content' => $request->contents ?? '',
                 'user_id' => auth()->id() ?? '',
                 'category_id' => $request->category_id ?? ''
             ]))
@@ -60,7 +60,7 @@ class ProductController extends Controller
                 'title' => $request->title ?? '',
                 'price' => $request->price ?? '',
                 'image' => $image_path,
-                'content' => $request->content ?? '',
+                'content' => $request->contents ?? '',
                 'user_id' => intval(auth()->id()) ?? 0,
                 'category_id' => intval($request->category_id) ?? 0
             ]);
