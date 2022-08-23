@@ -35,7 +35,7 @@
                                     <td>{{ $product->title ?? '' }}</td>
                                     <td>{{ $product->price ?? '' }}</td>
                                     <td>
-                                        <img src="/{{ $product->image ?? '' }}" height="50">
+                                        <img src="{{ asset($product->image) ?? '' }}" height="50">
                                     </td>
                                     <td>{{ $product->category_id }}</td>
                                     <td>
